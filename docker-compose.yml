@@ -4,12 +4,13 @@ services:
     desktop:
         image: michaelbatz/desktop-env
         build: .
+        privileged: true
         ports:
         - "3389:3389"
         environment:
             ROOT_PASSWORD: "root"
             USER_USERNAME: "desktop"
-            USER_PASSWORD: "dektop"
+            USER_PASSWORD: "desktop"
         volumes:
         - home:/home
 

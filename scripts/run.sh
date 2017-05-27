@@ -17,8 +17,15 @@ if [ -z ${USER_PASSWORD+x} ]; then USER_PASSWORD=desktop; fi
 adduser ${USER_USERNAME}
 
 # set passwords
-echo "${ROOT_PASSWORD}" | passwd root --stdin
-echo "${USER_PASSWORD}" | passwd ${USER_USERNAME} --stdin
+echo "root:${ROOT_PASSWORD}" | chpasswd
+echo "${USER_USERNAME}:${USER_PASSWORD}" | chpasswd
+
+# temp workaroun for startup
+echo "startxfce4" > /root/.Xclients && chmod +x /root/.Xclients
+echo "startxfce4" > /home/desktop/.Xclients && chmod +x /home/desktop/.Xclients
+
+# start systemwide D-BUS
+/usr/bin/dbus-daemon --system --fork
 
 # start xrdp
 /usr/sbin/xrdp-sesman
