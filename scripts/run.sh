@@ -20,13 +20,12 @@ adduser ${USER_USERNAME}
 echo "root:${ROOT_PASSWORD}" | chpasswd
 echo "${USER_USERNAME}:${USER_PASSWORD}" | chpasswd
 
-# temp workaroun for startup
+# temp workaround for startup
 echo "startxfce4" > /root/.Xclients && chmod +x /root/.Xclients
 echo "startxfce4" > /home/desktop/.Xclients && chmod +x /home/desktop/.Xclients
 
 # start systemwide D-BUS
 /usr/bin/dbus-daemon --system --fork
 
-# start xrdp
-/usr/sbin/xrdp-sesman
-/usr/sbin/xrdp -n
+# start sshd
+/usr/sbin/sshd -D
